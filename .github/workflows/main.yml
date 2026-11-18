@@ -2,6 +2,11 @@ name: OpenShorts Automation
 
 on:
   workflow_dispatch:
+    inputs:
+      video_url:
+        description: 'رابط الفيديو المراد معالجته'
+        required: true
+        type: string
   schedule:
     - cron: '0 0 * * *'
 
@@ -29,4 +34,4 @@ jobs:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: |
-          python main.py
+          python main.py -u "${{ github.event.inputs.video_url }}"
